@@ -1,1 +1,158 @@
-<p>employee works!</p>
+<div class="container my-5">
+  <h1 class="text-center mb-4">Employee Information</h1>
+
+  <div class="row g-4">
+    <!-- Formulaire d'ajout -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white">Add / Edit Employee</div>
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="newEmployee.employeeName"
+                name="employeeName"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                [(ngModel)]="newEmployee.emailId"
+                name="emailId"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Contact No</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="newEmployee.contactNo"
+                name="contactNo"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Hire Date</label>
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="newEmployee.createdDate"
+                name="createdDate"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Salary</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="newEmployee.deptId"
+                name="deptId"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Gender</label>
+              <select
+                class="form-select"
+                [(ngModel)]="newEmployee.gender"
+                name="gender"
+              >
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Role</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="newEmployee.role"
+                name="role"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                [(ngModel)]="newEmployee.password"
+                name="password"
+              />
+            </div>
+
+            <div class="d-grid">
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="addRecord()"
+              >
+                {{ selectedIndex !== null ? "Update" : "Add" }} Employee
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tableau des employés -->
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-secondary text-white">Employee List</div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center">
+              <thead class="table-light">
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Contact</th>
+                  <th>Hire Date</th>
+                  <th>Dept ID</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let emp of employees; index as i">
+                  <td>{{ emp.employeeName }}</td>
+                  <td>{{ emp.emailId }}</td>
+                  <td>{{ emp.contactNo }}</td>
+                  <td>{{ emp.createdDate | date }}</td>
+                  <td>{{ emp.deptId }}</td>
+                  <td>
+                    <button
+                      class="btn btn-sm btn-warning me-1"
+                      (click)="editRecord(i)"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="btn btn-sm btn-danger"
+                      (click)="deleteRecord(i)"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+
+                <tr *ngIf="employees.length === 0">
+                  <td colspan="6" class="text-muted">No employee found.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
