@@ -1,20 +1,24 @@
-import { Component } from '@angular/core';
-import { Employee } from '../../model/Employee';
+import { MasterService } from './../../services/master.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { Employee, IApiResponse, IParentDept } from '../../model/Employee';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-employee',
   standalone: true,
-  imports: [FormsModule,CommonModule, DatePipe ],
+  imports: [FormsModule, CommonModule, DatePipe],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.css',
 })
-export class EmployeeComponent {
+export class EmployeeComponent implements OnInit {
   employees: Employee[] = [];
+  parentDeptList: IParentDept[] = [];
 
   // Formulaire lié à l'objet
   newEmployee: Employee = new Employee();
+
+  MasterService = inject(MasterService);
 
   selectedIndex: number | null = null;
 
@@ -46,5 +50,15 @@ export class EmployeeComponent {
   resetForm(): void {
     this.newEmployee = new Employee();
     this.selectedIndex = null;
+  }
+
+  ngOnInit(): void {
+    this.getParentDeptList();
+  }
+
+  getParentDeptList() {
+    this.MasterService.getParentDepts().subscribe((res: IApiResponse) => {
+      this.parentDeptList = res.data;
+    });
   }
 }
