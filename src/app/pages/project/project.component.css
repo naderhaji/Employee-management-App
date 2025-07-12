@@ -1,0 +1,12 @@
+main {
+  width: 60vw;
+  margin: 4vh auto;
+
+  > * + * {
+    margin-top: 12vh;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
